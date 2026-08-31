@@ -12,7 +12,7 @@
 
   <form v-else-if="!authed" class="card login" @submit.prevent="doLogin">
     <h1>探活</h1>
-    <p class="muted">盯几个网址，挂了记下来。配了 webhook 会推一条。</p>
+    <p class="muted">先盯几个站</p>
     <input v-model="password" type="password" placeholder="密码">
     <button type="submit">进来</button>
     <p v-if="err" class="err">{{ err }}</p>

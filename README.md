@@ -1,15 +1,7 @@
 # ping-box
 
-盯几个网址。点一下探通不通，挂了记日志。`.env` 里填了 webhook 就会往钉钉/飞书自定义机器人推一条。
+几个网址探一下通不通。
 
-```bash
-copy .env.example .env
-pip install -r requirements.txt
-python app.py
-```
+挂了会记一笔。想推钉钉的话 `.env` 里填 `WEBHOOK_URL`，我只试过自定义机器人那种。
 
-或 `start.bat`，5062 端口，密码默认 123456。
-
-钉钉机器人地址填 `WEBHOOK_URL`。不填也能用，只是不推人。
-
-主要文件：`ping.py` 探网址和推消息，`app.py` 接口，`static/app.js` 页面。
+`start.bat`，5062。不会自己转，得手动点。

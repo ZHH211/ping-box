@@ -1,4 +1,3 @@
-"""盯几个网址，挂了记一笔，有 webhook 就推出去。"""
 from flask import Flask, jsonify, request, session, send_from_directory
 
 import config

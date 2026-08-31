@@ -1,4 +1,3 @@
-"""探一下网址通不通。挂了就往 webhook 推一条。"""
 import time
 
 import httpx
