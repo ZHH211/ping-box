@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>探活</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+  <div v-if="!ready" class="muted">加载中</div>
+
+  <form v-else-if="!authed" class="card login" @submit.prevent="doLogin">
+    <h1>探活</h1>
+    <p class="muted">盯几个网址，挂了记下来。配了 webhook 会推一条。</p>
+    <input v-model="password" type="password" placeholder="密码">
+    <button type="submit">进来</button>
+    <p v-if="err" class="err">{{ err }}</p>
+  </form>
+
+  <div v-else>
+    <header>
+      <div>
+        <h1>探活</h1>
+        <p class="muted">{{ webhook ? "webhook 已配" : "没配 webhook，先只记日志" }}</p>
+      </div>
+      <button class="ghost" @click="doLogout">退出</button>
+    </header>
+
+    <form class="card add" @submit.prevent="add">
+      <input v-model="form.name" placeholder="叫啥，比如 官网" required>
+      <input v-model="form.url" placeholder="https://..." required>
+      <button type="submit">加上</button>
+    </form>
+
+    <button class="big" :disabled="busy" @click="check">{{ busy ? "在探" : "现在探一遍" }}</button>
+    <p v-if="note" class="muted">{{ note }}</p>
+
+    <h2>盯着的</h2>
+    <div class="card" v-for="t in items" :key="t.id">
+      <div class="row">
+        <strong>{{ t.name }}</strong>
+        <button class="ghost" @click="remove(t.id)">去掉</button>
+      </div>
+      <p class="muted">{{ t.url }}</p>
+    </div>
+
+    <h2>最近几次</h2>
+    <div class="card" v-for="l in logs" :key="l.id">
+      <div class="row">
+        <span :class="l.ok ? 'ok' : 'err'">{{ l.ok ? "通" : "挂" }}</span>
+        <strong>{{ l.name || "-" }}</strong>
+        <span class="muted">{{ l.ms }}ms {{ l.msg }}</span>
+        <span class="muted right">{{ l.created_at }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
